@@ -1,18 +1,52 @@
 # css-clean-structured-short
-Convention for naming selectors and structuring stylesheets (and people who don't like BEM ;)
-I began to hate having these BEM-style, amazing long selectors. They waste bandwidth! Especially in combination they started owning my source code. They force me to use thousands of keystrokes while editing. They are hard to find within LESS/SCSS if ```&``` was used a lot.
-So I tried to find a balance between specificity and code amount ...
+Convention for structuring stylesheets and naming selectors (and people who don't like BEM ;)  
+I began to hate having these BEM-style, amazing long selectors. They waste bandwidth and contain a lot of duplication.
+Especially in combination they started owning my source code. They force me to use thousands of keystrokes while
+editing. They are hard to find within LESS/SCSS if ```&``` was used a lot.  
+So I tried to find a balance between specificity and code amount …
+
+TL;TR
+-----
+Don't select tag names - give them classes!  
+Use PascalCase for your 1st level scope and camelCase for the rest!
+
+HTML example
+```html
+<article class="TeaserModule -variantLarge  grid-span-all">
+  <header class="header">
+    <p class="Headline -tertiary">Universe on panic</p>
+    <h1 class="Headline -secondary">42 not the answer to life, the universe and everything!</h1>
+  </header>
+  <p class="body _expanded">
+    Further studies revealed: 42 is not the answer to life, the universe and everything. It's 43!
+    Someone made a off by one error within the calculation algorithm.
+  </p>
+  <a class="Link -arrowRight" href="article.html">Read more</a>
+</article>
+```
 
 Structure
 -----
-Our main definitions will be separated in
-- **elements** <description>
-- **components** <description>
-- **modules** <description>
+We will define **primary selectors** (1st level scope) and **secondary selectors** (2nd level scope).  
+Primary selectors are written in **PascalCase** and grouped into …
 
-Their selectors are written in **PascalCase**.
-Other parts within are written in **camelCase**.
+- **elements**  
+  Uncomplex compounds like headlines, buttons, pictures with icons or action buttons.
+- **components**  
+  Less complex compounds without own context like article footers, form fields (including label & input)  
+  May contain elements & components & secondary (custom) elements.
+- **modules**  
+  Complex compounds with own context.  
+  May contain elements & components & secondary (custom) elements
+
+Secondary selectors are written in **camelCase**.
 Global helpers (e.g. grid classes) will also use **camelCase**.
+
+```css
+.PrimarySelector {}
+.PrimarySelector .secondarySelector {}
+
+```
 
 Naming schema
 -----
