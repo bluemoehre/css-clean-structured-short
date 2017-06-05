@@ -1,42 +1,75 @@
 # css-clean-structured-short
-Convention for structuring stylesheets and naming selectors (and people who don't like BEM ;)  
+Convention for structuring stylesheets and naming selectors (and people who don't like BEM ;)
 I began to hate having these BEM-style, amazing long selectors. They waste bandwidth and contain a lot of duplication.
 Especially in combination they started owning my source code. They force me to use thousands of keystrokes while
-editing. They are hard to find within LESS/SCSS if ```&``` was used a lot.  
+editing. They are hard to find within LESS/SCSS if ```&``` was used a lot.
 So I tried to find a balance between specificity and code amount …
 
 TL;TR
 -----
-Don't select tag names - give them classes!  
-Use PascalCase for your 1st level scope and camelCase for the rest!
+- Never ever select tag names!
+- Differentiate between elements, components, modules
+- Use *PascalCase* for your defined elements, components, modules …
+- … and *camelCase* for their own parts
 
 HTML example
 ```html
-<article class="TeaserModule -variantLarge  grid-span-all">
-  <header class="header">
-    <p class="Headline -tertiary">Universe on panic</p>
-    <h1 class="Headline -secondary">42 not the answer to life, the universe and everything!</h1>
-  </header>
-  <p class="body _expanded">
-    Further studies revealed: 42 is not the answer to life, the universe and everything. It's 43!
-    Someone made a off by one error within the calculation algorithm.
-  </p>
-  <a class="Link -arrowRight" href="article.html">Read more</a>
-</article>
+<!-- Module -->
+<div class="TeaserList">
+
+  <!-- Element -->
+  <p class="Headline -primary">Latest Updates</p>
+
+  <!-- Component -->
+  <article class="Teaser -large  grid-span-all">
+    <header class="header">
+
+      <!-- Element -->
+      <p class="Headline -tertiary">Universe on panic</p>
+
+      <!-- Element -->
+      <h1 class="Headline -secondary">42 not the answer to life, the universe and everything!</h1>
+
+    </header>
+
+    <p class="body _expanded">
+      Further studies revealed: 42 is not the answer to life, the universe and everything. It's 43!
+      Someone made a off by one error within the calculation algorithm.
+    </p>
+
+    <!-- Element -->
+    <a class="Link -arrowRight" href="/article/42-not-answer-to-life.html">Read more</a>
+
+    <!-- Component -->
+    <footer class="ArticleFooter -small">
+      <p>
+        published on <time class="publishDate" datetime="2017-06-05 13:58">June 5th, 2017</time> by
+
+        <!-- Element -->
+        <a class="Link -author" href="/user/bluemoehre.html" rel="author">bluemoehre</a>
+      </p>
+    </footer>
+
+  </article>
+
+  <!-- Element -->
+  <a class="Link -showMore" href="?p=2">more</a>
+
+</div>
 ```
 
 Structure
 -----
-We will define **primary selectors** (1st level scope) and **secondary selectors** (2nd level scope).  
+We will define **primary selectors** (1st level scope) and **secondary selectors** (2nd level scope).
 Primary selectors are written in **PascalCase** and grouped into …
 
-- **elements**  
+- **elements**
   Uncomplex compounds like headlines, buttons, pictures with icons or action buttons.
-- **components**  
-  Less complex compounds without own context like article footers, form fields (including label & input)  
+- **components**
+  Less complex compounds without own context like article footers, form fields (including label & input)
   May contain elements & components & secondary (custom) elements.
-- **modules**  
-  Complex compounds with own context.  
+- **modules**
+  Complex compounds with own context.
   May contain elements & components & secondary (custom) elements
 
 Secondary selectors are written in **camelCase**.
@@ -45,7 +78,6 @@ Global helpers (e.g. grid classes) will also use **camelCase**.
 ```css
 .PrimarySelector {}
 .PrimarySelector .secondarySelector {}
-
 ```
 
 Naming schema
